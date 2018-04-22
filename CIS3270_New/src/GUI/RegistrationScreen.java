@@ -16,198 +16,360 @@ import javafx.stage.Window;
 
 public class RegistrationScreen extends Application  {
 
-	
+
+	TextField FirstName = new TextField();
+	TextField LastName = new TextField();
+	TextField Address = new TextField();
+	TextField Zip = new TextField();
+	TextField State = new TextField();
+	TextField Username = new TextField();
+	TextField Email = new TextField();
+	TextField SSN = new TextField();
+	TextField SecurityQueston = new TextField();
+	PasswordField Password = new PasswordField();
+	PasswordField ConfirmPassword = new PasswordField();
+	Button button = new Button();
+	Button button0 = new Button();
+	Label Title = new Label();
+
+
+
+	/**
+
+	 * Launch the application.
+
+	 */
+
+	public static void main(String[] args) {
+
+		Application.launch(args);
+
+	}
+
 
 
 	@Override
+
 	public void start(Stage primaryStage) throws Exception {
-		primaryStage.setTitle("Registration For Flight Master");
 
-		GridPane gridPane = RegistrationForm();
-		// Add UI controls to the registration form grid pane
-		addUIControls(gridPane);
-		// Dimensions of grid
-		Scene scene = new Scene(gridPane, 700, 700);
-		primaryStage.setScene(scene);
-		primaryStage.show();
-	}
+		primaryStage.setTitle("Register");
 
-	private GridPane RegistrationForm() {
-		GridPane gridPane = new GridPane();
+		primaryStage.setResizable(false);
 
-		// Set Visual for the grid pane
-		gridPane.setAlignment(Pos.CENTER);
-		gridPane.setPadding(new Insets(100, 100, 20, 20));
-		gridPane.setHgap(5);
-		gridPane.setVgap(5);
+		AnchorPane anchor = new AnchorPane();
 
-		return gridPane;
-	}
+		anchor.setPadding(new Insets(0));
 
-	private void addUIControls(GridPane gridPane) {
+
+
+		Label firstNameLbl = new Label();
+
+		firstNameLbl.setLayoutX(70.0);
+
+		firstNameLbl.setLayoutY(81.0);
+
+		firstNameLbl.setText("First Name");
+
+		firstNameLbl.setFont(new Font(20.0));
+
+
+
+		Label lastNameLbl = new Label();
+
+		lastNameLbl.setLayoutX(71.0);
+
+		lastNameLbl.setLayoutY(114.0);
+
+		lastNameLbl.setText("Last Name");
+
+		lastNameLbl.setFont(new Font(20.0));
+
+
+
+		Label addressLbl = new Label();
+
+		addressLbl.setLayoutX(94.0);
+
+		addressLbl.setLayoutY(149.0);
+
+		addressLbl.setText("Address");
+
+		addressLbl.setFont(new Font(20.0));
+
+
+
+		Label zipLbl = new Label();
+
+		zipLbl.setLayoutX(84.0);
+
+		zipLbl.setLayoutY(184.0);
+
+		zipLbl.setText("Zip Code");
+
+		zipLbl.setFont(new Font(20.0));
+
+
+
+		Label stateLbl = new Label();
+
+		stateLbl.setLayoutX(118.0);
+
+		stateLbl.setLayoutY(221.0);
+
+		stateLbl.setText("State");
+
+		stateLbl.setFont(new Font(20.0));
+
+
+
+		Label userLbl = new Label();
+
+		userLbl.setLayoutX(74.0);
+
+		userLbl.setLayoutY(256.0);
+
+		userLbl.setText("Username");
+
+		userLbl.setFont(new Font(20.0));
+
+
+
+		Label passLbl = new Label();
+
+		passLbl.setLayoutX(77.0);
+
+		passLbl.setLayoutY(287.0);
+
+		passLbl.setText("Password");
+
+		passLbl.setFont(new Font(20.0));
+
+
+
+		Label pconfirmPassLbl = new Label();
+
+		pconfirmPassLbl.setLayoutX(3.0);
+
+		pconfirmPassLbl.setLayoutY(329.0);
+
+		pconfirmPassLbl.setText("Confirm Password");
+
+		pconfirmPassLbl.setFont(new Font(20.0));
+
+
+
+		Label emailLbl = new Label();
+
+		emailLbl.setLayoutX(117.0);
+
+		emailLbl.setLayoutY(362.0);
+
+		emailLbl.setText("Email");
+
+		emailLbl.setFont(new Font(20.0));
+
+
+
+		Label ssnLbl = new Label();
+
+		ssnLbl.setLayoutX(122.0);
+
+		ssnLbl.setLayoutY(392.0);
+
+		ssnLbl.setText("SSN");
+
+		ssnLbl.setFont(new Font(20.0));
+
+
+
+
+		FirstName.setLayoutX(174.0);
+
+		FirstName.setLayoutY(83.0);
+
+		FirstName.setPromptText("First Name");
+
+
+
+		LastName.setLayoutX(174.0);
+
+		LastName.setLayoutY(116.0);
+
+		LastName.setPromptText("Last Name");
+
+
+
+		Address.setLayoutX(174.0);
+
+		Address.setLayoutY(151.0);
+
+		Address.setPromptText("Address");
+
+
+
+		Zip.setLayoutX(174.0);
+
+		Zip.setLayoutY(186.0);
+
+		Zip.setPromptText("#####");
+
+
+
+		State.setLayoutX(174.0);
+
+		State.setLayoutY(223.0);
+
+		State.setPromptText("State");
+
+
+
+		Username.setLayoutX(174.0);
+
+		Username.setLayoutY(258.0);
+
+		Username.setPromptText("Username");
+
+
+
+		Email.setLayoutX(174.0);
+
+		Email.setLayoutY(364.0);
+
+		Email.setPromptText("Example@example.com");
+
+
+
+		SSN.setLayoutX(174.0);
+
+		SSN.setLayoutY(398.0);
+
+		SSN.setPromptText("###-##-####");
 		
-		// Add Header
-		Label headerLabel = new Label("Registration");
-		headerLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-		gridPane.add(headerLabel, 0, 0, 2, 1);
-		GridPane.setHalignment(headerLabel, HPos.CENTER);
-		GridPane.setMargin(headerLabel, new Insets(20, 0, 20, 0));
 
-		// Add First Name Label and Field
-		Label firstNameLabel = new Label("First Name : ");
-		gridPane.add(firstNameLabel, 0, 1);
-		TextField firstNameField = new TextField();
-		firstNameField.setPrefHeight(40);
-		gridPane.add(firstNameField, 1, 1);
+		SecurityQueston.setLayoutX(174.0);
 
-		// Add Last Name Label and Field
-		Label lastNameLabel = new Label("LastName : ");
-		gridPane.add(lastNameLabel, 0, 2);
-		TextField lastNameField = new TextField();
-		lastNameField.setPrefHeight(40);
-		gridPane.add(lastNameField, 1, 2);
+		SecurityQueston.setLayoutY(465.0);
 
-		// Add Address Label and Field
-		Label addressLabel = new Label("Address : ");
-		gridPane.add(addressLabel, 0, 3);
-		TextField addressField = new TextField();
-		addressField.setPrefHeight(40);
-		gridPane.add(addressField, 1, 3);
+		SecurityQueston.setPromptText("Enter your answer here");
 
-		// Add Zip Label and Field
-		Label zipLabel = new Label("Zip Code : ");
-		gridPane.add(zipLabel, 0, 4);
-		TextField zipField = new TextField();
-		zipField.setPrefHeight(40);
-		gridPane.add(zipField, 1, 4);
 
-		// Add State Label and Field
-		Label stateLabel = new Label("State :");
-		gridPane.add(stateLabel, 0, 5);
-		TextField stateField = new TextField();
-		stateField.setPrefHeight(40);
-		gridPane.add(stateField, 1, 5);
 
-		// Add Username Label and Field
-		Label userLabel = new Label("Username :");
-		gridPane.add(userLabel, 0, 6);
-		TextField userField = new TextField();
-		userField.setPrefHeight(40);
-		gridPane.add(userField, 1, 6);
+		Password.setLayoutX(174.0);
 
-		// Add Password Label and Field
-		Label passLabel = new Label("Password :");
-		gridPane.add(passLabel, 0, 7);
-		TextField passField = new TextField();
-		passField.setPrefHeight(40);
-		gridPane.add(passField, 1, 7);
+		Password.setLayoutY(290.0);
 
-		// Add email label and field
-		Label emailLabel = new Label("Email :");
-		gridPane.add(emailLabel, 0, 8);
-		TextField emailField = new TextField();
-		emailField.setPrefHeight(40);
-		gridPane.add(emailField, 1, 8);
+		Password.setPromptText("Password");
 
-		// Add SSN label and field
-		Label ssnLabel = new Label("SSN :");
-		gridPane.add(ssnLabel, 0, 9);
-		TextField ssnField = new TextField();
-		ssnField.setPrefHeight(40);
-		gridPane.add(ssnField, 1, 9);
 
-		// Add drop down box for security question
+
+		ConfirmPassword.setLayoutX(174.0);
+
+		ConfirmPassword.setLayoutY(329.0);
+
+		ConfirmPassword.setPromptText("Confirm Password");
+		
+		
 		final ComboBox<String> securityQuestionComboBox = new ComboBox<String>();
+
 		securityQuestionComboBox.getItems().addAll("What is your favorite food?",
+
 				"What elementary school did you attend?", "Who is your favorite actor?",
+
 				"Where is your favorite place to eat?", "What is your favorite fruit?");
+
+
+		securityQuestionComboBox.setLayoutX(174.0);
+		securityQuestionComboBox.setLayoutY(432.0);
 
 		securityQuestionComboBox.setValue("Choose Question");
 
-		Label securityQuestionLabel = new Label("Security Question :");
-		gridPane.add(securityQuestionLabel, 0, 10);
-		gridPane.add(securityQuestionComboBox, 1, 10);
 
-		/**
-		 * //Add Security Question label and field Label securityQuestionLabel =
-		 * new Label ("Security Question :");
-		 * gridPane.add(securityQuestionLabel, 0, 10); TextField
-		 * securityQuestionField = new TextField();
-		 * securityQuestionField.setPrefHeight(40);
-		 * gridPane.add(securityQuestionField, 1, 10);
-		 * 
-		 **/
 
-		// Add Security Answer label and field
-		Label securityAnswerLabel = new Label("Security Answer :");
-		gridPane.add(securityAnswerLabel, 0, 11);
-		TextField securityAnswerField = new TextField();
-		securityAnswerField.setPrefHeight(40);
-		gridPane.add(securityAnswerField, 1, 11);
-
-		// Add Register Button
-		Button submitButton = new Button("Register");
-		submitButton.setPrefHeight(40);
-		submitButton.setDefaultButton(true);
-		submitButton.setPrefWidth(100);
-		gridPane.add(submitButton, 0, 12, 2, 1);
-		GridPane.setHalignment(submitButton, HPos.CENTER);
-		GridPane.setMargin(submitButton, new Insets(20, 0, 20, 0));
+		Label securityQuestionLabel = new Label("Security Question ");
 		
-        submitButton.setOnAction(e -> {
-			LoginScreen login = new LoginScreen();
-			try {
-				LoginScreen.start(primaryStage);
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+		securityQuestionLabel.setLayoutX(5.0);
+
+		securityQuestionLabel.setLayoutY(428.0);
+		securityQuestionLabel.setFont(new Font(20.0));
+
+
+
+		button.setLayoutX(234.0);
+
+		button.setLayoutY(524.0);
+
+		button.setMnemonicParsing(false);
+
+		button.setPrefHeight(25.0);
+
+		button.setPrefWidth(105.0);
+
+		button.setText("Register");
+
+		button.setOnAction(e -> {
+			
+
+			LoginScreen loginPage = new LoginScreen();
+			
+			loginPage.start(primaryStage);
+
 
 		});
-        
-        
-        // ADD ALERT BOX FOR PASSWORD REQUIREMENTS HERE 
-        
-        
-        
-        
-        
-        
-        
-        
-		
-		// Add Forgot password button
-				Button forgotPasswordButton = new Button("Forgot Password");
-				forgotPasswordButton.setPrefHeight(40);
-				forgotPasswordButton.setDefaultButton(true);
-				forgotPasswordButton.setPrefWidth(100);
-				gridPane.add(forgotPasswordButton, 0, 13, 2, 1);
-				GridPane.setHalignment(forgotPasswordButton, HPos.CENTER);
-				GridPane.setMargin(forgotPasswordButton, new Insets(20, 0, 20, 0));
-				
-		        forgotPasswordButton.setOnAction(e -> {
-					Login ForgotPassword = new Login();
-					try {
-						.start(primaryStage);
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
 
-				});
-				
-	
-				
+
+
+		button0.setLayoutX(104.0);
+
+		button0.setLayoutY(524.0);
+
+		button0.setMnemonicParsing(false);
+
+		button0.setText("Forgot password");
+
+		button0.setOnAction(e -> {
 
 	
 
-	}
+		});
 
-	public static void main(String[] args) {
-		launch(args);
-	}
-	
+
+
+		Title.setLayoutX(130.0);
+
+		Title.setLayoutY(14.0);
+
+		Title.setText("Register User");
+
+		Title.setFont(new Font(24.0));
+
+
+
+		anchor.getChildren().addAll(firstNameLbl,lastNameLbl,addressLbl,zipLbl, stateLbl,userLbl,passLbl,
+
+				pconfirmPassLbl, emailLbl,ssnLbl,FirstName, LastName, Address, Zip, State,Username,
+
+				Email, SSN, Password, ConfirmPassword, button, button0, Title,securityQuestionLabel,securityQuestionComboBox,SecurityQueston);
 
 		
+
+		
+
+		Scene scene = new Scene(anchor, 440, 550);
+
+		primaryStage.setScene(scene);
+
+		primaryStage.show();
+
+		primaryStage.centerOnScreen();
+
 	}
 
+
+	}
+
+
+
+
+		
+
+	
