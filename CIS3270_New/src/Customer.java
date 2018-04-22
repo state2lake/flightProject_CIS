@@ -1,20 +1,71 @@
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import com.mysql.jdbc.PreparedStatement;
+
+import javafx.scene.control.TextField;
 
 public class Customer {
 
-	private String firstName;
-	private String lastName;
-	private String address;
-	private int zip;
-	private String state;
-	private String username;
-	private String password;
-	private String email;
-	private String SSN;
-	private String securityQuestion;
-	private String securityAnswer;
-	public boolean admin;
+	String SSN;
+	String firstName;
+	TextField txtFirstName;
+	String lastName;
+	String email;
+	String userNAME;
+	String passWORD;
+	String securityQuestion;
+	
+	ArrayList<String> list = new ArrayList<String>();
 
+	Customer() {
+
+	}
+
+	Customer(String newUserNAME, String newPassWORD) {
+
+	}
+
+	Customer(String newSSN, String newfirstName, String newlastName, String newEmail, String newuserNAME,
+			String newpassWORD) {
+		SSN = newSSN;
+		firstName = newfirstName;
+		lastName = newlastName;
+		email = newEmail;
+		userNAME = newuserNAME;
+		passWORD = newpassWORD;
+	}
+
+	public String getSSN() {
+		return SSN;
+	}
+
+	public void setSSN(String sSN) {
+		SSN = sSN;
+
+		String dash = "-";
+		char one = sSN.charAt(3);
+		char two = sSN.charAt(6);
+
+		if (Character.isLetter(one) || Character.isDigit(one)) {
+			System.out.println("Illegal format");
+		}
+		int dashCount = 0;
+		for(int i = 0; i < sSN.length(); i++) {
+		if(sSN.contains(dash) ) {
+			dashCount++;
+		}
+		
+		
+		}
+		if(dashCount < 2) 
+			System.out.println("Illegal format - dash");
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -32,85 +83,85 @@ public class Customer {
 		this.lastName = lastName;
 	}
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public int getZip() {
-		return zip;
-	}
-
-	public void setZip(int zip) {
-		this.zip = zip;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
+
+		String at = "@";
+		String com = ".com";
+		if (!email.contains(at)) {
+			System.out.println("Invalid, email must have " + at + " symbol");
+		}
+		if (!email.contains(com)) {
+			System.out.println("Sorry, I don't recognize that extension (Password must contain .com) ");
+		}
+
 	}
 
-	public String getSSN() {
-		return SSN;
+	public String getUserNAME() {
+		return userNAME;
 	}
 
-	public void setSSN(String sSN) {
-		SSN = sSN;
+	public void setUserNAME(String userNAME) {
+		this.userNAME = userNAME;
+		if (userNAME.length() <= 3) {
+			System.out.println("Invalid, username must be more than 3 characters ");
+		}
 	}
 
-	public String getSecurityQuestion() {
-		return securityQuestion;
+	public String getPassWORD() {
+		return passWORD;
 	}
 
-	public void setSecurityQuestion(String securityQuestion) {
-		this.securityQuestion = securityQuestion;
+	public void setPassWORD(String passWORD) {
+		this.passWORD = passWORD;
+
+		char a = passWORD.charAt(0);
+		if (Character.isLowerCase(a)) {
+			System.out.println("Invalid, password must start with a capital letter ");
+		} else if (passWORD.length() < 6) {
+			System.out.println("Invalid, password must be longer than 6 characters");
+		} else if (!passWORD.matches(".*\\d+.*")) {
+			System.out.println("Invalid, password must contain a number");
+		}
 	}
 
-	public String getSecurityAnswer() {
-		return securityAnswer;
-	}
+//	public static ArrayList<String> list () {
+//		
+//	}
 
-	public void setSecurityAnswer(String securityAnswer) {
-		this.securityAnswer = securityAnswer;
-	}
-
-	public boolean isAdmin() {
-		return admin;
-	}
-	public void setAdminUser (boolean adminUser) {
-		this.admin = adminUser;
-	}
+	// this is where I want to put the business logic to the class.
 
 }
 
+// if i make this static I can access it outside of these classes with the name
+// of the outer class
+class databaseOperation {
 
+	/*
+	 * Please remember that Customer cust belongs in every method. I want to get
+	 * info from a textField where they register
+	 * 
+	 * I have Constructor up with different parameters. make sure that is correct
+	 * 4/20/18 -Jonathan
+	 */
+
+	 public void Register(Customer cust) throws ClassNotFoundException,
+	 SQLException {
+	 Customer a = new Customer();
+	 // all should have txtField get text in parameters
+	// a.setSSN();
+	 a.setFirstName("");
+	 a.setLastName("");
+	 a.setEmail("");
+	 a.setUserNAME("");
+	
+	 // now insert that info into mySQL
+	
+	 }
+
+	
+}
