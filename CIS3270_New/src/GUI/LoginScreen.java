@@ -28,6 +28,8 @@ public class LoginScreen extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+    	
+    	//Create Pane
         primaryStage.setTitle("Welcome");
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -38,28 +40,51 @@ public class LoginScreen extends Application {
         Text scenetitle = new Text("Welcome to Flight Master");
         scenetitle.setFont(Font.font("family", FontWeight.BOLD, 20));
         grid.add(scenetitle, 0, 0, 2, 1);
-
+        
+        
+        //Create label and text field for user name
         Label userName = new Label("User Name:");
         grid.add(userName, 0, 1);
-
         TextField userTextField = new TextField();
         grid.add(userTextField, 1, 1);
 
+        //Create label and text field for password
         Label password = new Label("Password:");
         grid.add(password, 0, 2);
-
         PasswordField passBox = new PasswordField();
         grid.add(passBox, 1, 2);
+        
+        
+        //Create login button
+        Button loginButton = new Button("Find my flight!");
+        HBox hbloginButton = new HBox(10);
+        hbloginButton.setAlignment(Pos.BOTTOM_RIGHT);
+        hbloginButton.getChildren().add(loginButton);
+        grid.add(hbloginButton, 1, 4);
+        
+        loginButton.setOnAction(e -> {
+			Login Main = new Login();
+			try {
+				.start(primaryStage);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
-        Button btn = new Button("Find my flight!");
-        HBox hbBtn = new HBox(10);
-        hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-        hbBtn.getChildren().add(btn);
-        grid.add(hbBtn, 1, 4);
+		});
+
+        
+        
+        //Create register button
+        Button registerButton = new Button("New User");
+        HBox hbregisterButton = new HBox(10);
+        hbregisterButton.setAlignment(Pos.BOTTOM_RIGHT);
+        hbregisterButton.getChildren().add(registerButton);
+        grid.add(hbregisterButton, 1, 5);
 
 
 
-        Scene scene = new Scene(grid, 300, 275);
+        Scene scene = new Scene(grid, 500, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

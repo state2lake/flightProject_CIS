@@ -16,19 +16,20 @@ public static class ShowImage extends Application {
   public void start(Stage primaryStage) {
 	  
 	  
-    // Create a pane to hold the image views
+    // Create a pane 
     Pane pane = new HBox(10);
     pane.setPadding(new Insets(100));
+    
+    //Insert image into the pane
     Image image = new Image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRONV99IsFO1V8zvO22AvTIY50Grj-pmO6lBD4cNDPu9XkBfyKX-Q");
     pane.getChildren().add(new ImageView(image));
-    
-
+   
   
     
-    // Create a scene and place it in the stage
+    // Create a scene 
     Scene scene = new Scene(pane);
     
-    // Set the title
+    // Name Title
     primaryStage.setTitle("Welcome"); 
     primaryStage.setScene(scene); 
     primaryStage.show(); 
