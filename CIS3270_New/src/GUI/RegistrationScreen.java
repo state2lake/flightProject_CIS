@@ -1,6 +1,9 @@
 package GUI;
 
 import javafx.application.Application;
+
+import javafx.geometry.Pos;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -52,13 +55,15 @@ public class RegistrationScreen extends Application  {
 
 	public void start(Stage primaryStage) throws Exception {
 
-		primaryStage.setTitle("Register");
+		primaryStage.setTitle("Registration");
 
 		primaryStage.setResizable(false);
 
 		AnchorPane anchor = new AnchorPane();
 
 		anchor.setPadding(new Insets(0));
+		
+		
 
 
 
@@ -68,9 +73,9 @@ public class RegistrationScreen extends Application  {
 
 		firstNameLbl.setLayoutY(81.0);
 
-		firstNameLbl.setText("First Name");
+		firstNameLbl.setText("First Name: ");
 
-		firstNameLbl.setFont(new Font(20.0));
+		firstNameLbl.setFont(new Font(18.0));
 
 
 
@@ -80,9 +85,9 @@ public class RegistrationScreen extends Application  {
 
 		lastNameLbl.setLayoutY(114.0);
 
-		lastNameLbl.setText("Last Name");
+		lastNameLbl.setText("Last Name: ");
 
-		lastNameLbl.setFont(new Font(20.0));
+		lastNameLbl.setFont(new Font(18.0));
 
 
 
@@ -92,9 +97,9 @@ public class RegistrationScreen extends Application  {
 
 		addressLbl.setLayoutY(149.0);
 
-		addressLbl.setText("Address");
+		addressLbl.setText("Address: ");
 
-		addressLbl.setFont(new Font(20.0));
+		addressLbl.setFont(new Font(18.0));
 
 
 
@@ -104,9 +109,9 @@ public class RegistrationScreen extends Application  {
 
 		zipLbl.setLayoutY(184.0);
 
-		zipLbl.setText("Zip Code");
+		zipLbl.setText("Zip Code: ");
 
-		zipLbl.setFont(new Font(20.0));
+		zipLbl.setFont(new Font(18.0));
 
 
 
@@ -116,9 +121,9 @@ public class RegistrationScreen extends Application  {
 
 		stateLbl.setLayoutY(221.0);
 
-		stateLbl.setText("State");
+		stateLbl.setText("State: ");
 
-		stateLbl.setFont(new Font(20.0));
+		stateLbl.setFont(new Font(18.0));
 
 
 
@@ -128,9 +133,9 @@ public class RegistrationScreen extends Application  {
 
 		userLbl.setLayoutY(256.0);
 
-		userLbl.setText("Username");
+		userLbl.setText("Username: ");
 
-		userLbl.setFont(new Font(20.0));
+		userLbl.setFont(new Font(18.0));
 
 
 
@@ -140,9 +145,9 @@ public class RegistrationScreen extends Application  {
 
 		passLbl.setLayoutY(287.0);
 
-		passLbl.setText("Password");
+		passLbl.setText("Password: ");
 
-		passLbl.setFont(new Font(20.0));
+		passLbl.setFont(new Font(18.0));
 
 
 
@@ -152,9 +157,9 @@ public class RegistrationScreen extends Application  {
 
 		pconfirmPassLbl.setLayoutY(329.0);
 
-		pconfirmPassLbl.setText("Confirm Password");
+		pconfirmPassLbl.setText("Confirm Password: ");
 
-		pconfirmPassLbl.setFont(new Font(20.0));
+		pconfirmPassLbl.setFont(new Font(18.0));
 
 
 
@@ -164,9 +169,9 @@ public class RegistrationScreen extends Application  {
 
 		emailLbl.setLayoutY(362.0);
 
-		emailLbl.setText("Email");
+		emailLbl.setText("Email: ");
 
-		emailLbl.setFont(new Font(20.0));
+		emailLbl.setFont(new Font(18.0));
 
 
 
@@ -176,9 +181,9 @@ public class RegistrationScreen extends Application  {
 
 		ssnLbl.setLayoutY(392.0);
 
-		ssnLbl.setText("SSN");
+		ssnLbl.setText("SSN: ");
 
-		ssnLbl.setFont(new Font(20.0));
+		ssnLbl.setFont(new Font(18.0));
 
 
 
@@ -285,12 +290,12 @@ public class RegistrationScreen extends Application  {
 
 
 
-		Label securityQuestionLabel = new Label("Security Question ");
+		Label securityQuestionLabel = new Label("Security Question: ");
 		
 		securityQuestionLabel.setLayoutX(5.0);
 
 		securityQuestionLabel.setLayoutY(428.0);
-		securityQuestionLabel.setFont(new Font(20.0));
+		securityQuestionLabel.setFont(new Font(18.0));
 
 
 
@@ -318,19 +323,7 @@ public class RegistrationScreen extends Application  {
 
 
 
-		button0.setLayoutX(104.0);
-
-		button0.setLayoutY(524.0);
-
-		button0.setMnemonicParsing(false);
-
-		button0.setText("Forgot password");
-
-		button0.setOnAction(e -> {
-
-	
-
-		});
+		
 
 
 
@@ -338,7 +331,7 @@ public class RegistrationScreen extends Application  {
 
 		Title.setLayoutY(14.0);
 
-		Title.setText("Register User");
+		Title.setText("Registration for Flight Master");
 
 		Title.setFont(new Font(24.0));
 
@@ -354,7 +347,7 @@ public class RegistrationScreen extends Application  {
 
 		
 
-		Scene scene = new Scene(anchor, 440, 550);
+		Scene scene = new Scene(anchor, 600, 700);
 
 		primaryStage.setScene(scene);
 
