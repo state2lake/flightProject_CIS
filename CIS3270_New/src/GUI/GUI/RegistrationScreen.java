@@ -1,6 +1,7 @@
 package GUI;
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -289,6 +290,8 @@ public class RegistrationScreen extends Application  {
 		ConfirmPassword.setPromptText("Confirm Password");
 		
 		
+		
+		
 		final ComboBox<String> securityQuestionComboBox = new ComboBox<String>();
 
 		securityQuestionComboBox.getItems().addAll("What is your favorite food?",
@@ -336,8 +339,21 @@ public class RegistrationScreen extends Application  {
 
 			
 			   Customer cust = new Customer();
+			   cust.setFirstName(FirstName.getText());
+			   cust.setLastName(LastName.getText());
+			   cust.setEmail(Email.getText());
+			   cust.setUserNAME(Username.getText());
+			   cust.setAddress(Address.getText());
+			   cust.setZip(Zip.getText());
+			   cust.setState(State.getText());
+			   cust.setSecurityQuestion(SecurityQuestion.getText());
+			   cust.setPassWORD(Password.getText());
+			   cust.setConfirmPassword(ConfirmPassword.getText());
+			   cust.setSSN(SSN.getText());
+			   
+			   
 			  dbConnection = Connect();
-			    String sql="Insert into CIS3270.Customer(firstName,lastName, email,userNAME,Address,Zip,State,SecurityQ,  Password, ConfirmPassword,SSN)VALUES (?,?,?,?,?,?,?,?,?,?,?)"; 
+			    String sql="Insert into Customer(firstName,lastName, email,userNAME,Address,Zip,State,SecurityQ,  Password, ConfirmPassword,SSN) VALUES (?,?,?,?,?,?,?,?,?,?,?)"; 
 			    preparedStatement =  dbConnection.prepareStatement(sql);
 			 
 			    
@@ -355,7 +371,6 @@ public class RegistrationScreen extends Application  {
 			    
 			   
 			    preparedStatement.executeUpdate();
-			    
 			    dbConnection.close(); 
 			    preparedStatement.close(); 
 			
