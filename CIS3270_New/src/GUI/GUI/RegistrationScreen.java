@@ -1,5 +1,12 @@
 package GUI;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import USERS.Customer;
 import javafx.application.Application;
 
 import javafx.geometry.Pos;
@@ -16,6 +23,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import mySQL_Connector.Connector;
 
 public class RegistrationScreen extends Application  {
 
@@ -28,7 +36,7 @@ public class RegistrationScreen extends Application  {
 	TextField Username = new TextField();
 	TextField Email = new TextField();
 	TextField SSN = new TextField();
-	TextField SecurityQueston = new TextField();
+	TextField SecurityQuestion = new TextField();
 	PasswordField Password = new PasswordField();
 	PasswordField ConfirmPassword = new PasswordField();
 	Button button = new Button();
@@ -44,7 +52,8 @@ public class RegistrationScreen extends Application  {
 	 */
 
 	public static void main(String[] args) {
-
+		
+		
 		Application.launch(args);
 
 	}
@@ -54,7 +63,10 @@ public class RegistrationScreen extends Application  {
 	@Override
 
 	public void start(Stage primaryStage) throws Exception {
-
+		
+		
+		
+		
 		primaryStage.setTitle("Registration");
 
 		primaryStage.setResizable(false);
@@ -134,6 +146,7 @@ public class RegistrationScreen extends Application  {
 		userLbl.setLayoutY(256.0);
 
 		userLbl.setText("Username: ");
+	
 
 		userLbl.setFont(new Font(18.0));
 
@@ -233,6 +246,8 @@ public class RegistrationScreen extends Application  {
 		Username.setLayoutY(258.0);
 
 		Username.setPromptText("Username");
+		
+		
 
 
 
@@ -251,11 +266,11 @@ public class RegistrationScreen extends Application  {
 		SSN.setPromptText("###-##-####");
 		
 
-		SecurityQueston.setLayoutX(174.0);
+		SecurityQuestion.setLayoutX(174.0);
 
-		SecurityQueston.setLayoutY(465.0);
+		SecurityQuestion.setLayoutY(465.0);
 
-		SecurityQueston.setPromptText("Enter your answer here");
+		SecurityQuestion.setPromptText("Enter your answer here");
 
 
 
@@ -313,12 +328,47 @@ public class RegistrationScreen extends Application  {
 
 		button.setOnAction(e -> {
 			
+			
+			 Connection dbConnection = null;
+				PreparedStatement preparedStatement = null;
+				
+			 try {
 
+			
+			   Customer cust = new Customer();
+			  dbConnection = Connect();
+			    String sql="Insert into CIS3270.Customer(firstName,lastName, email,userNAME,Address,Zip,State,SecurityQ,  Password, ConfirmPassword,SSN)VALUES (?,?,?,?,?,?,?,?,?,?,?)"; 
+			    preparedStatement =  dbConnection.prepareStatement(sql);
+			 
+			    
+			    preparedStatement.setString(1,cust.getFirstName()); 
+			    preparedStatement.setString(2,cust.getLastName()); 
+			    preparedStatement.setString(3,cust.getEmail()); 
+			    preparedStatement.setString(4,cust.getUserNAME()); 
+			    preparedStatement.setString(5,cust.getAddress());
+			    preparedStatement.setString(6,cust.getZip()); 
+			    preparedStatement.setString(7,cust.getState());
+			    preparedStatement.setString(8,cust.getSecurityQuestion());
+			    preparedStatement.setString(9,cust.getPassWORD()); 
+			    preparedStatement.setString(10,cust.getConfirmPassword());
+			    preparedStatement.setString(11,cust.getSSN()); 
+			    
+			   
+			    preparedStatement.executeUpdate();
+			    
+			    dbConnection.close(); 
+			    preparedStatement.close(); 
+			
+				
+			
 			LoginScreen loginPage = new LoginScreen();
 			
 			loginPage.start(primaryStage);
 
-
+			 }
+			 catch(Exception e1) {
+				e1.printStackTrace();
+			 }
 		});
 
 
@@ -341,7 +391,7 @@ public class RegistrationScreen extends Application  {
 
 				pconfirmPassLbl, emailLbl,ssnLbl,FirstName, LastName, Address, Zip, State,Username,
 
-				Email, SSN, Password, ConfirmPassword, button, button0, Title,securityQuestionLabel,securityQuestionComboBox,SecurityQueston);
+				Email, SSN, Password, ConfirmPassword, button, button0, Title,securityQuestionLabel,securityQuestionComboBox,SecurityQuestion);
 
 		
 
@@ -356,8 +406,22 @@ public class RegistrationScreen extends Application  {
 		primaryStage.centerOnScreen();
 
 	}
+	public static Connection Connect() {
+		Connection con = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			con = (Connection) DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/CIS3270", "root", "Tsiknus41");
+		} catch (Exception e) {
+			System.out.println("Can not connect");
+		}
+		if (con != null) {
+			System.out.println("Connected Successfully");
+		}
+		return con;
+	}
+	
 
-
+	 
 	}
 
 

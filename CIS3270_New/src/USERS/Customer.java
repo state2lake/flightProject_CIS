@@ -1,3 +1,4 @@
+package USERS;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,39 +7,47 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-
-
+import GUI.RegistrationScreen;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class Customer {
+public class Customer extends RegistrationScreen {
 
-	String SSN;
+
 	String firstName;
-	TextField txtFirstName;
 	String lastName;
+	String Address;
+	String Zip;
+	String State;
 	String email;
-	String userNAME;
-	String passWORD;
-	String securityQuestion;
+	String SSN;
+	String SecurityQuestion;
+	String userName;
+	String passWord;
+	String confirmPassword;
 	
 	ArrayList<String> list = new ArrayList<String>();
 
-	Customer() {
+	public Customer() {
 
 	}
 
-	Customer(String newUserNAME, String newPassWORD) {
-
-	}
-
-	Customer(String newSSN, String newfirstName, String newlastName, String newEmail, String newuserNAME,
-			String newpassWORD) {
-		SSN = newSSN;
-		firstName = newfirstName;
-		lastName = newlastName;
-		email = newEmail;
-		userNAME = newuserNAME;
-		passWORD = newpassWORD;
+	public Customer(String firstName, String lastName, String address, String zip, String state, String email,
+			String sSN, String securityQuestion, String userName, String passWord, String confirmPassword) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		Address = address;
+		Zip = zip;
+		State = state;
+		this.email = email;
+		SSN = sSN;
+		SecurityQuestion = securityQuestion;
+		this.userName = userName;
+		this.passWord = passWord;
+		this.confirmPassword = confirmPassword;
+		
 	}
 
 	public String getSSN() {
@@ -102,66 +111,80 @@ public class Customer {
 	}
 
 	public String getUserNAME() {
-		return userNAME;
+		return userName;
 	}
 
-	public void setUserNAME(String userNAME) {
-		this.userNAME = userNAME;
-		if (userNAME.length() <= 3) {
+	public void setUserNAME(String string) {
+		this.userName = string;
+		if (string.toString().length() <= 3) {
 			System.out.println("Invalid, username must be more than 3 characters ");
 		}
 	}
 
 	public String getPassWORD() {
-		return passWORD;
+		return passWord;
 	}
 
 	public void setPassWORD(String passWORD) {
-		this.passWORD = passWORD;
+		this.passWord= passWORD;
 
 		char a = passWORD.charAt(0);
 		if (Character.isLowerCase(a)) {
 			System.out.println("Invalid, password must start with a capital letter ");
 		} else if (passWORD.length() < 6) {
 			System.out.println("Invalid, password must be longer than 6 characters");
-		} else if (!passWORD.matches(".*\\d+.*")) {
+		}
+		else if (!passWORD.matches(".*\\d+.*")) {
 			System.out.println("Invalid, password must contain a number");
 		}
 	}
 
-//	public static ArrayList<String> list () {
-//		
-//	}
+	public String getAddress() {
+		return Address;
+	}
 
-	// this is where I want to put the business logic to the class.
+	public void setAddress(String address) {
+		Address = address;
+	}
 
-}
+	public String getZip() {
+		return Zip;
+	}
 
-// if i make this static I can access it outside of these classes with the name
-// of the outer class
-class databaseOperation {
+	public void setZip(String zip) {
+		Zip = zip;
+	}
 
-	/*
-	 * Please remember that Customer cust belongs in every method. I want to get
-	 * info from a textField where they register
-	 * 
-	 * I have Constructor up with different parameters. make sure that is correct
-	 * 4/20/18 -Jonathan
-	 */
+	public String getState() {
+		return State;
+	}
 
-	 public void Register(Customer cust) throws ClassNotFoundException,
-	 SQLException {
-	 Customer a = new Customer();
-	 // all should have txtField get text in parameters
-	// a.setSSN();
-	 a.setFirstName("");
-	 a.setLastName("");
-	 a.setEmail("");
-	 a.setUserNAME("");
+	public void setState(String state) {
+		State = state;
+	}
+
+	public String getSecurityQuestion() {
+		return SecurityQuestion;
+	}
+
+	public void setSecurityQuestion(String securityQuestion) {
+		SecurityQuestion = securityQuestion;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
+
+
 	
-	 // now insert that info into mySQL
 	
-	 }
 
+
+	
 	
 }
