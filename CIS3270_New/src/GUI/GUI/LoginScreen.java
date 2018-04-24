@@ -1,4 +1,5 @@
 package GUI;
+
 import javafx.application.Application;
 
 import javafx.geometry.Insets;
@@ -15,57 +16,63 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-
+import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class LoginScreen extends Application {
-	
+
 	public static void main(String[] args) {
-        launch(args);
-    }
-	
-	
+		launch(args);
+	}
 
-    @Override
-    public void start(Stage primaryStage) {
-    	
-    	//Create Pane
-        primaryStage.setTitle("Welcome");
-        GridPane grid = new GridPane();
-        grid.setAlignment(Pos.CENTER);
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setPadding(new Insets(25, 25, 25, 25));
+	@Override
+	public void start(Stage primaryStage) {
 
-        Text scenetitle = new Text("Welcome to Flight Master");
-        scenetitle.setFont(Font.font("family", FontWeight.BOLD, 20));
-        grid.add(scenetitle, 0, 0, 2, 1);
-        
-        
-        //Create label and text field for user name
-        Label userName = new Label("User Name:");
-        grid.add(userName, 0, 1);
-        TextField userTextField = new TextField();
-        grid.add(userTextField, 1, 1);
+		// Create Pane
+		primaryStage.setTitle("Welcome");
+		GridPane grid = new GridPane();
+		grid.setAlignment(Pos.CENTER);
+		grid.setHgap(10);
+		grid.setVgap(10);
+		grid.setPadding(new Insets(25, 25, 25, 25));
 
-        //Create label and text field for password
-        Label password = new Label("Password:");
-        grid.add(password, 0, 2);
-        PasswordField passBox = new PasswordField();
-        grid.add(passBox, 1, 2);
-        
-        
-        //Create login button
-        Button loginButton = new Button("Find my flight!");
-        HBox hbloginButton = new HBox(10);
-        hbloginButton.setAlignment(Pos.BOTTOM_RIGHT);
-        hbloginButton.getChildren().add(loginButton);
-        grid.add(hbloginButton, 1, 4);
-        
-        loginButton.setOnAction(e -> {
-			Login Main = new Login();
+		Text scenetitle = new Text("Welcome to Flight Master");
+		scenetitle.setFont(Font.font("family", FontWeight.BOLD, 20));
+		grid.add(scenetitle, 0, 0, 2, 1);
+
+		// Create label and text field for user name
+		Label userName = new Label("User Name:");
+		grid.add(userName, 0, 1);
+		TextField userTextField = new TextField();
+
+		grid.add(userTextField, 1, 1);
+
+		// Create label and text field for password
+		Label password = new Label("Password:");
+		grid.add(password, 0, 2);
+		PasswordField passBox = new PasswordField();
+		grid.add(passBox, 1, 2);
+
+		// Create login button
+		Button loginButton = new Button("Find my flight!");
+		HBox hbloginButton = new HBox(10);
+		hbloginButton.setAlignment(Pos.BOTTOM_RIGHT);
+		hbloginButton.getChildren().add(loginButton);
+		grid.add(hbloginButton, 1, 4);
+
+		loginButton.setOnAction(e -> {
+			Main main = new Main();
+
 			try {
-				.start(primaryStage);
+
+				// maybe put an arraylist in to add all the passwords to
+				checkPassword(passBox,primaryStage);
+				
+
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -73,20 +80,69 @@ public class LoginScreen extends Application {
 
 		});
 
-        
-        
-        //Create register button
-        Button registerButton = new Button("New User");
-        HBox hbregisterButton = new HBox(10);
-        hbregisterButton.setAlignment(Pos.BOTTOM_RIGHT);
-        hbregisterButton.getChildren().add(registerButton);
-        grid.add(hbregisterButton, 1, 5);
+		// Create register button
+		Button registerButton = new Button("New User");
+		HBox hbregisterButton = new HBox(10);
+		hbregisterButton.setAlignment(Pos.BOTTOM_RIGHT);
+		hbregisterButton.getChildren().add(registerButton);
+		grid.add(hbregisterButton, 1, 5);
+		Scene scene = new Scene(grid, 500, 400);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+		
+		registerButton.setOnAction(e -> {
+			RegistrationScreen screen = new RegistrationScreen();
+			try {
+				screen.start(primaryStage);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+	}
 
+	public static Connection Connect() {
+		Connection con = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			con = (Connection) DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/CIS3270", "root", "Tsiknus41");
+		} catch (Exception e) {
+			System.out.println("Can not connect");
+		}
+		if (con != null) {
+			System.out.println("Connected Successfully");
+		}
+		return con;
+	}
 
+	public static void checkPassword(PasswordField pass, Stage primaryStage) {
+		Main main = new Main();
+		
+		Connection dbConnection = null;
+		PreparedStatement preparedStatement = null;
 
-        Scene scene = new Scene(grid, 500, 400);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
+		try {
+			dbConnection = Connect();
+			String sql = "SELECT passWord FROM Customer";
+			preparedStatement = dbConnection.prepareStatement(sql);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+
+				String password = rs.getString("passWord");
+
+				System.out.println(password);
+				//I am going to have to create a loop
+				if(pass.getText().equals(password)) {
+					main.start(primaryStage);
+				}
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }
-
