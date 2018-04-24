@@ -22,6 +22,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class LoginScreen extends Application {
 
@@ -70,12 +71,13 @@ public class LoginScreen extends Application {
 			try {
 
 				// maybe put an arraylist in to add all the passwords to
-				checkPassword(passBox,primaryStage);
-				
+				checkUsername(userTextField, primaryStage);
+				checkPassword(passBox, primaryStage);
 
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
+
 			}
 
 		});
@@ -89,13 +91,28 @@ public class LoginScreen extends Application {
 		Scene scene = new Scene(grid, 500, 400);
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		
+
 		registerButton.setOnAction(e -> {
 			RegistrationScreen screen = new RegistrationScreen();
 			try {
 				screen.start(primaryStage);
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		Button forgotPasswordButton = new Button("Forgot Password");
+		HBox forgotPassword = new HBox(10);
+		forgotPassword.setAlignment(Pos.BOTTOM_RIGHT);
+		forgotPassword.getChildren().add(forgotPasswordButton);
+		grid.add(forgotPassword, 1, 6);
+		
+		forgotPasswordButton.setOnAction(e -> {
+			ForgotPassword fPScreen = new ForgotPassword();
+			try { 
+				fPScreen.start(primaryStage);
+			}
+			catch(Exception e1) {
 				e1.printStackTrace();
 			}
 		});
@@ -115,9 +132,46 @@ public class LoginScreen extends Application {
 		return con;
 	}
 
+	public static void checkUsername(TextField user, Stage primaryStage) {
+		Main main = new Main();
+
+		Connection dbConnection = null;
+		PreparedStatement preparedStatement = null;
+
+		try {
+			dbConnection = Connect();
+			String sql = "SELECT userNAME FROM Customer";
+			preparedStatement = dbConnection.prepareStatement(sql);
+
+			ResultSet rs = preparedStatement.executeQuery();
+			ResultSet rsp = preparedStatement.executeQuery();
+
+			while (rs.next() && rsp.next()) {
+
+				String username = rs.getString("userNAME");
+
+				System.out.println(username);
+				ArrayList<String> list = new ArrayList<>();
+				list.add(rs.getString("userNAME"));
+
+				System.out.println(list);
+
+				if (user.getText().equals(rs.getString("userNAME"))) {
+
+					System.out.println(list);
+					main.start(primaryStage);
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+	}
+
 	public static void checkPassword(PasswordField pass, Stage primaryStage) {
 		Main main = new Main();
-		
+
 		Connection dbConnection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -133,13 +187,19 @@ public class LoginScreen extends Application {
 				String password = rs.getString("passWord");
 
 				System.out.println(password);
-				//I am going to have to create a loop
-				if(pass.getText().equals(password)) {
+				ArrayList<String> list = new ArrayList<>();
+				list.add(rs.getString("passWord"));
+
+				System.out.println(list);
+
+				if (pass.getText().equals(rs.getString("passWord"))) {
+
+					System.out.println(list);
 					main.start(primaryStage);
 				}
-				
+
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
