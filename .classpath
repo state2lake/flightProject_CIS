@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry excluding="GUI/" kind="src" path="CIS3270_New/src"/>
+	<classpathentry kind="src" path="CIS3270_New/src/GUI"/>
+	<classpathentry kind="lib" path="/Users/jayclark/Downloads/mysql-connector-java-5.1.46/mysql-connector-java-5.1.46-bin.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
