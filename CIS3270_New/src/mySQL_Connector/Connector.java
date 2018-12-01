@@ -75,31 +75,7 @@ public class Connector {
 		}
 
 	}
-	 @SuppressWarnings("null")
-	public void insert (Customer cust)  throws ClassNotFoundException,
-	 SQLException
-	 {
-		 Connection dbConnection = null;
-			PreparedStatement preparedStatement = null;
-			
-		 
-		   
-		  
-		    String sql="Insert into CIS3270.Customer(SSN,firstName,lastName, email,userNAME)VALUES (?,?,?,?,?)"; 
-		    preparedStatement = (PreparedStatement) dbConnection.prepareStatement(sql);
-		    preparedStatement.setString(1,cust.getSSN()); 
-		    preparedStatement.setString(2,cust.getFirstName()); 
-		    preparedStatement.setString(3,cust.getLastName()); 
-		    preparedStatement.setString(4,cust.getEmail()); 
-		    preparedStatement.setString(5,cust.getUserNAME()); 
-		    
-		   
-		    preparedStatement.executeBatch(); 
-		    preparedStatement.executeUpdate(); 
-		    dbConnection.close(); 
-		    preparedStatement.close(); 
 	 
-	 }
 
 	
 }

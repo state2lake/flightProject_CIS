@@ -73,8 +73,11 @@ public class RegistrationScreen extends Application  {
 		primaryStage.setResizable(false);
 
 		AnchorPane anchor = new AnchorPane();
-
+		
+		GridPane grid = new GridPane();
+		
 		anchor.setPadding(new Insets(0));
+	
 		
 		
 
@@ -157,7 +160,7 @@ public class RegistrationScreen extends Application  {
 
 		passLbl.setLayoutX(77.0);
 
-		passLbl.setLayoutY(287.0);
+		passLbl.setLayoutY(292.0);
 
 		passLbl.setText("Password: ");
 
@@ -167,11 +170,11 @@ public class RegistrationScreen extends Application  {
 
 		Label pconfirmPassLbl = new Label();
 
-		pconfirmPassLbl.setLayoutX(3.0);
+		pconfirmPassLbl.setLayoutX(76.0);
 
-		pconfirmPassLbl.setLayoutY(329.0);
+		pconfirmPassLbl.setLayoutY(325.0);
 
-		pconfirmPassLbl.setText("Confirm Password: ");
+		pconfirmPassLbl.setText("  Confirm" + "\n Password: ");
 
 		pconfirmPassLbl.setFont(new Font(18.0));
 
@@ -181,7 +184,7 @@ public class RegistrationScreen extends Application  {
 
 		emailLbl.setLayoutX(117.0);
 
-		emailLbl.setLayoutY(362.0);
+		emailLbl.setLayoutY(385.0);
 
 		emailLbl.setText("Email: ");
 
@@ -193,7 +196,7 @@ public class RegistrationScreen extends Application  {
 
 		ssnLbl.setLayoutX(122.0);
 
-		ssnLbl.setLayoutY(392.0);
+		ssnLbl.setLayoutY(420.0);
 
 		ssnLbl.setText("SSN: ");
 
@@ -254,7 +257,7 @@ public class RegistrationScreen extends Application  {
 
 		Email.setLayoutX(174.0);
 
-		Email.setLayoutY(364.0);
+		Email.setLayoutY(385.0);
 
 		Email.setPromptText("Example@example.com");
 
@@ -262,14 +265,14 @@ public class RegistrationScreen extends Application  {
 
 		SSN.setLayoutX(174.0);
 
-		SSN.setLayoutY(398.0);
+		SSN.setLayoutY(420.0);
 
 		SSN.setPromptText("###-##-####");
 		
 
 		SecurityQuestion.setLayoutX(174.0);
 
-		SecurityQuestion.setLayoutY(465.0);
+		SecurityQuestion.setLayoutY(513.0);
 
 		SecurityQuestion.setPromptText("Enter your answer here");
 
@@ -277,15 +280,19 @@ public class RegistrationScreen extends Application  {
 
 		Password.setLayoutX(174.0);
 
-		Password.setLayoutY(290.0);
+		Password.setLayoutY(292.0);
 
 		Password.setPromptText("Password");
+		
+		
+		
+		
 
 
 
 		ConfirmPassword.setLayoutX(174.0);
 
-		ConfirmPassword.setLayoutY(329.0);
+		ConfirmPassword.setLayoutY(345.0);
 
 		ConfirmPassword.setPromptText("Confirm Password");
 		
@@ -302,33 +309,42 @@ public class RegistrationScreen extends Application  {
 
 
 		securityQuestionComboBox.setLayoutX(174.0);
-		securityQuestionComboBox.setLayoutY(432.0);
+		securityQuestionComboBox.setLayoutY(477.0);
 
 		securityQuestionComboBox.setValue("Choose Question");
 
 
 
-		Label securityQuestionLabel = new Label("Security Question: ");
+		Label securityQuestionLabel = new Label("   Security" + "\n Question: ");
 		
-		securityQuestionLabel.setLayoutX(5.0);
+		securityQuestionLabel.setLayoutX(76.0);
 
-		securityQuestionLabel.setLayoutY(428.0);
+		securityQuestionLabel.setLayoutY(457.0);
 		securityQuestionLabel.setFont(new Font(18.0));
 
 
 
-		button.setLayoutX(234.0);
+		button.setLayoutX(334.0);
 
-		button.setLayoutY(524.0);
+		button.setLayoutY(565.0);
 
 		button.setMnemonicParsing(false);
-
+ 
 		button.setPrefHeight(25.0);
 
 		button.setPrefWidth(105.0);
 
-		button.setText("Register");
+		button.setText("Submit");
+		
+		
+			LoginScreen screen = new LoginScreen();
+			try {
+				screen.start(primaryStage);
+			} catch (Exception e1) {
 
+				e1.printStackTrace();
+			}
+		
 		button.setOnAction(e -> {
 			
 			
@@ -337,7 +353,8 @@ public class RegistrationScreen extends Application  {
 				
 			 try {
 
-			
+				if (checkUser(Username) == true && checkPass(Password, ConfirmPassword) == true ) {
+				 
 			   Customer cust = new Customer();
 			   cust.setFirstName(FirstName.getText());
 			   cust.setLastName(LastName.getText());
@@ -381,16 +398,42 @@ public class RegistrationScreen extends Application  {
 			loginPage.start(primaryStage);
 
 			 }
+			 }
 			 catch(Exception e1) {
 				e1.printStackTrace();
 			 }
 		});
 
+		button0.setLayoutX(124.0);
 
+		button0.setLayoutY(565.0);
 
+		button0.setMnemonicParsing(false);
+ 
+		button0.setPrefHeight(25.0);
+
+		button0.setPrefWidth(155.0);
+
+		button0.setText("Return to Login");
 		
+		
+			LoginScreen screens = new LoginScreen();
+			
+			try {
+				screens.start(primaryStage);
+			} catch (Exception e1) {
 
-
+				e1.printStackTrace();
+			}
+		button0.setOnAction(e -> {
+			try {
+			screens.start(primaryStage);
+			}catch(Exception el ) {
+				el.printStackTrace();
+			}
+		});
+		
+			
 
 		Title.setLayoutX(130.0);
 
@@ -434,8 +477,37 @@ public class RegistrationScreen extends Application  {
 		}
 		return con;
 	}
-	
-
+	public static boolean checkPass(PasswordField  pass, PasswordField passw) {
+		char a = pass.getText().charAt(0);
+		if (Character.isLowerCase(a)) {
+			AlertBox.display("Error","Password must start with a capital letter!");
+			return false;
+		} else if (pass.getText().length() < 6) {
+			AlertBox.display("Error", "Password must be longer than 6 characters");
+			return false;
+		}
+		else if (!pass.getText().matches(".*\\d+.*")) {
+			AlertBox.display("Error","Password must contain a number");
+			return false;
+		} else if (!pass.getText().equals(passw.getText())) {
+			AlertBox.display("Error", "Passwords don't match");
+		}
+		
+		// if password is already in the database pop box 
+		return true;
+	}
+public static boolean checkUser(TextField user) {
+	char a = user.getText().charAt(0);
+	if (user.toString().length() <= 3) {
+		AlertBox.display("Error","Username must be more than 3 characters");
+		return false;
+	}else if (Character.isLowerCase(a)) {
+		AlertBox.display("Error","Username must start with a capital letter!");
+		return false;
+}
+	return true;
+}
+	 
 	 
 	}
 

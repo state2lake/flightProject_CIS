@@ -24,7 +24,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import USERS.Customer;
+
 public class LoginScreen extends Application {
+	TextField userTextField = new TextField();
 
 	public static void main(String[] args) {
 		launch(args);
@@ -48,7 +51,7 @@ public class LoginScreen extends Application {
 		// Create label and text field for user name
 		Label userName = new Label("User Name:");
 		grid.add(userName, 0, 1);
-		TextField userTextField = new TextField();
+		userTextField = new TextField();
 
 		grid.add(userTextField, 1, 1);
 
@@ -67,18 +70,32 @@ public class LoginScreen extends Application {
 
 		loginButton.setOnAction(e -> {
 			Main main = new Main();
+			Main_admin mainad = new Main_admin();
 
+			//
+			//
+			//
+			//
 			try {
 
-				// maybe put an arraylist in to add all the passwords to
-				checkUsername(userTextField, primaryStage);
-				checkPassword(passBox, primaryStage);
-
+				if (checkUsername(userTextField, primaryStage) == true
+						&& checkPassword(passBox, primaryStage) == true) {
+					main.start(primaryStage);
+				
+				}
+				else if(userTextField.getText().equals("Admin11") &&
+			 passBox.getText().equals("Admin2019")) {
+					mainad.start(primaryStage);
+				}
+				else AlertBox.display("Error", "Login credentials not found. Please try again or click Fogot Password");
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-
 			}
+
+			
+
+			
 
 		});
 
@@ -106,13 +123,12 @@ public class LoginScreen extends Application {
 		forgotPassword.setAlignment(Pos.BOTTOM_RIGHT);
 		forgotPassword.getChildren().add(forgotPasswordButton);
 		grid.add(forgotPassword, 1, 6);
-		
+
 		forgotPasswordButton.setOnAction(e -> {
-			ForgotPassword fPScreen = new ForgotPassword();
-			try { 
+			passwordRecovery fPScreen = new passwordRecovery();
+			try {
 				fPScreen.start(primaryStage);
-			}
-			catch(Exception e1) {
+			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 		});
@@ -132,7 +148,7 @@ public class LoginScreen extends Application {
 		return con;
 	}
 
-	public static void checkUsername(TextField user, Stage primaryStage) {
+	public static boolean checkUsername(TextField user, Stage primaryStage) {
 		Main main = new Main();
 
 		Connection dbConnection = null;
@@ -140,62 +156,48 @@ public class LoginScreen extends Application {
 
 		try {
 			dbConnection = Connect();
-			String sql = "SELECT userNAME FROM Customer";
-			preparedStatement = dbConnection.prepareStatement(sql);
 
-			ResultSet rs = preparedStatement.executeQuery();
-			ResultSet rsp = preparedStatement.executeQuery();
+			String sql = "SELECT userNAME FROM Customer WHERE NOT userNAME = 'Admin11' ";
 
-			while (rs.next() && rsp.next()) {
-
-				String username = rs.getString("userNAME");
-
-				System.out.println(username);
-				ArrayList<String> list = new ArrayList<>();
-				list.add(rs.getString("userNAME"));
-
-				System.out.println(list);
-
-				if (user.getText().equals(rs.getString("userNAME"))) {
-
-					System.out.println(list);
-					main.start(primaryStage);
-				}
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-
-		}
-	}
-
-	public static void checkPassword(PasswordField pass, Stage primaryStage) {
-		Main main = new Main();
-
-		Connection dbConnection = null;
-		PreparedStatement preparedStatement = null;
-
-		try {
-			dbConnection = Connect();
-			String sql = "SELECT passWord FROM Customer";
 			preparedStatement = dbConnection.prepareStatement(sql);
 
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
 
-				String password = rs.getString("passWord");
+				if (user.getText().equals(rs.getString("userNAME"))) {
 
-				System.out.println(password);
-				ArrayList<String> list = new ArrayList<>();
-				list.add(rs.getString("passWord"));
+					return true;
 
-				System.out.println(list);
+				}
 
-				if (pass.getText().equals(rs.getString("passWord"))) {
+			}
 
-					System.out.println(list);
-					main.start(primaryStage);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return false;
+	}
+
+	public static boolean checkPassword(PasswordField pass, Stage primaryStage) {
+		Main main = new Main();
+
+		Connection dbConnection = null;
+		PreparedStatement preparedStatement = null;
+
+		try {
+			dbConnection = Connect();
+			String sql = "SELECT Password FROM Customer WHERE NOT Password = 'Admin2019'";
+			preparedStatement = dbConnection.prepareStatement(sql);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+
+				if (pass.getText().equals(rs.getString("Password"))) {
+
+					return true;
 				}
 
 			}
@@ -203,6 +205,7 @@ public class LoginScreen extends Application {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 
 }

@@ -16,28 +16,38 @@ public static class ShowImage extends Application {
   public void start(Stage primaryStage) {
 	  
 	  
-    // Create a pane 
+    // Create a pane to hold the image views
     Pane pane = new HBox(10);
-    pane.setPadding(new Insets(100));
-    
-    //Insert image into the pane
-    Image image = new Image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRONV99IsFO1V8zvO22AvTIY50Grj-pmO6lBD4cNDPu9XkBfyKX-Q");
+    pane.setPadding(new Insets(0));
+    Image image = new Image("https://i.imgur.com/S2wM4a1.png");
     pane.getChildren().add(new ImageView(image));
-   
+    
+
   
     
-    // Create a scene 
+    // Create a scene and place it in the stage
     Scene scene = new Scene(pane);
     
-    // Name Title
+    // Set the title
     primaryStage.setTitle("Welcome"); 
     primaryStage.setScene(scene); 
     primaryStage.show(); 
+	try {
+	    Thread.sleep(3000);
+	} catch (InterruptedException e) {
+	    e.printStackTrace();
+	}
+	
+	LoginScreen login = new LoginScreen();
+	
+	login.start(primaryStage);
+    
   }
   
 
   public static void main(String[] args) {
-    launch(args);
+    Application.launch(args);
+    
   }
 }
 

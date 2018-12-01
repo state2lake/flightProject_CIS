@@ -12,25 +12,29 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class Customer extends RegistrationScreen {
+public class Customer  {
 
 
-	String firstName;
-	String lastName;
-	String Address;
-	String Zip;
-	String State;
-	String email;
-	String SSN;
-	String SecurityQuestion;
-	String userName;
-	String passWord;
-	String confirmPassword;
+	private String firstName;
+	private String lastName;
+	private String Address;
+	private String Zip;
+	private String State;
+	private String email;
+	private String SSN;
+	private String SecurityQuestion;
+	private String userName;
+	private String passWord;
+	private String confirmPassword;
 	
 	ArrayList<String> list = new ArrayList<String>();
 
 	public Customer() {
 
+	}
+	public Customer(String username, String password) {
+		this.userName = username;
+		this.passWord = password;
 	}
 
 	public Customer(String firstName, String lastName, String address, String zip, String state, String email,
@@ -57,23 +61,7 @@ public class Customer extends RegistrationScreen {
 	public void setSSN(String sSN) {
 		SSN = sSN;
 
-		String dash = "-";
-		char one = sSN.charAt(3);
-		char two = sSN.charAt(6);
-
-		if (Character.isLetter(one) || Character.isDigit(one)) {
-			System.out.println("Illegal format");
-		}
-		int dashCount = 0;
-		for(int i = 0; i < sSN.length(); i++) {
-		if(sSN.contains(dash) ) {
-			dashCount++;
-		}
 		
-		
-		}
-		if(dashCount < 2) 
-			System.out.println("Illegal format - dash");
 	}
 
 	public String getFirstName() {
@@ -99,14 +87,6 @@ public class Customer extends RegistrationScreen {
 	public void setEmail(String email) {
 		this.email = email;
 
-		String at = "@";
-		String com = ".com";
-		if (!email.contains(at)) {
-			System.out.println("Invalid, email must have " + at + " symbol");
-		}
-		if (!email.contains(com)) {
-			System.out.println("Sorry, I don't recognize that extension (Password must contain .com) ");
-		}
 
 	}
 
@@ -116,9 +96,7 @@ public class Customer extends RegistrationScreen {
 
 	public void setUserNAME(String string) {
 		this.userName = string;
-		if (string.toString().length() <= 3) {
-			System.out.println("Invalid, username must be more than 3 characters ");
-		}
+		
 	}
 
 	public String getPassWORD() {
@@ -128,15 +106,6 @@ public class Customer extends RegistrationScreen {
 	public void setPassWORD(String passWORD) {
 		this.passWord= passWORD;
 
-		char a = passWORD.charAt(0);
-		if (Character.isLowerCase(a)) {
-			System.out.println("Invalid, password must start with a capital letter ");
-		} else if (passWORD.length() < 6) {
-			System.out.println("Invalid, password must be longer than 6 characters");
-		}
-		else if (!passWORD.matches(".*\\d+.*")) {
-			System.out.println("Invalid, password must contain a number");
-		}
 	}
 
 	public String getAddress() {
